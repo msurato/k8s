@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-homeassistant-pv
+spec:
+  storageClassName: data
+  capacity:
+    storage: 10Mi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: pig.surato.net
+    path: "/srv/nfs/homeassistant"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-homeassistant-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: data
+  resources:
+    requests:
+      storage: 10Mi
