@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-unifi-pv
+spec:
+  storageClassName: nfs-unifi
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: pig.surato.net
+    path: "/srv/nfs/unifi"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-unifi-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs-unifi
+  resources:
+    requests:
+      storage: 20Gi

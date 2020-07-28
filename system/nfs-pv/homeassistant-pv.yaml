@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: nfs-homeassistant-pv
 spec:
-  storageClassName: data
+  storageClassName: nfs-homeassistant
   capacity:
     storage: 10Mi
   accessModes:
@@ -20,7 +20,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: data
+  storageClassName: nfs-homeassistant
   resources:
     requests:
       storage: 10Mi
