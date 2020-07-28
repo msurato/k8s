@@ -1,0 +1,22 @@
+helmOperator:
+  create: false
+git:
+  url: "git@github.com:msurato/k8s"
+  ssh:
+    secretName: flux-git-deploy
+image:
+  repository: docker.io/fluxcd/flux
+  tag: 1.20.0
+registry:
+  rps: 50
+  burst: 50
+prometheus:
+  enabled: true
+  serviceMonitor:
+    create: true
+    interval: 30s
+    scrapeTimeout: 10s
+    namespace: flux
+syncGarbageCollection:
+  enabled: true
+  dry: false
