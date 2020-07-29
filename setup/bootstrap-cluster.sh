@@ -1,5 +1,17 @@
 #!/bin/bash
 
+#############################################
+# Because BASH does not have a die function #
+#   we must provide one                     #
+#############################################
+function die
+{
+    local message=$1
+    [ -z "$message" ] && message="Died"
+    echo "${BASH_SOURCE[1]}: line ${BASH_LINENO[0]}: ${FUNCNAME[1]}: $message." >&2
+    exit 1
+}
+
 #####################
 # Process arguments #
 #####################
@@ -23,6 +35,8 @@ while getopts 'hk:' OPTION; do
   esac
 done
 shift "$(($OPTIND -1))"
+
+[[ -n ${DEPLOY_KEY+x} ]] || die "You must supply a private key"  
 
 ############################
 #     Determine if we      #
