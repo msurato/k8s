@@ -80,6 +80,9 @@ installFlux() {
   helm repo add fluxcd https://charts.fluxcd.io
   #kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml
   helm upgrade --install flux --values "$REPO_ROOT"/flux/flux/flux-values.yaml --namespace flux fluxcd/flux
+  if ! kubectl get ClusterRoleBinding helm-operator; then
+    kubectl delete ClusterRoleBinding helm-operator
+  fi
   helm upgrade --install helm-operator --values "$REPO_ROOT"/flux/helm-operator/flux-helm-operator-values.yaml --skip-crds --namespace flux fluxcd/helm-operator
 
   FLUX_READY=1
