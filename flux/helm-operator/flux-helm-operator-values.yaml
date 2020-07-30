@@ -1,4 +1,3 @@
-createCRD: true
 git:
   ssh:
     secretName: flux-git-deploy
