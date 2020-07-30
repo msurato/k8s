@@ -9,7 +9,7 @@ helm:
 prometheus:
   enabled: false
   serviceMonitor:
-    create: true
+    create: false
     interval: 30s
     scrapeTimeout: 10s
     namespace: flux
