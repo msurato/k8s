@@ -11,7 +11,7 @@ registry:
   rps: 50
   burst: 50
 prometheus:
-  enabled: true
+  enabled: false
   serviceMonitor:
     create: true
     interval: 30s
