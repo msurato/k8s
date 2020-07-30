@@ -2,8 +2,7 @@ helmOperator:
   create: false
 git:
   url: "git@github.com:msurato/k8s"
-  ssh:
-    secretName: flux-git-deploy
+  secretName: flux-git-deploy
 image:
   repository: docker.io/fluxcd/flux
   tag: 1.20.0
