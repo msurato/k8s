@@ -78,8 +78,10 @@ installFlux() {
   message "installing flux"
   # install flux
   helm repo add fluxcd https://charts.fluxcd.io
-  #kubectl apply -f https://raw.githubusercontent.com/fluxcd/helm-operator/master/deploy/crds.yaml
   helm upgrade --install flux --values "$REPO_ROOT"/flux/flux/flux-values.yaml --namespace flux fluxcd/flux
+  if ! kubectl get ClusterRoleBinding helm-operator; then
+    kubectl delete ClusterRoleBinding helm-operator
+  fi
   helm upgrade --install helm-operator --values "$REPO_ROOT"/flux/helm-operator/flux-helm-operator-values.yaml --skip-crds --namespace flux fluxcd/helm-operator
 
   FLUX_READY=1
@@ -91,7 +93,7 @@ installFlux() {
   done
 
   # grab output the key
-  FLUX_KEY=$(kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2)
+  # FLUX_KEY=$(kubectl -n flux logs deployment/flux | grep identity.pub | cut -d '"' -f2)
 
   # This may be useful if we can get ADO repo key addition some day. Commenting out for now.
   #message "adding the key to github automatically"
@@ -117,6 +119,6 @@ installFlux
 #"$REPO_ROOT"/setup/bootstrap-vault.sh
 
 message "all done!"
-#kubectl get nodes -o=wide
+kubectl get nodes -o=wide
 
 # finished
