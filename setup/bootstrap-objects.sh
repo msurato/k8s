@@ -20,20 +20,24 @@ installManualObjects(){
   ##########
   # secrets
   ##########
+  # not certain what we need to seed Vault
   # kubectl -n kube-system create secret generic kms-vault --from-literal=account.json="$(echo $VAULT_KMS_ACCOUNT_JSON | base64 --decode)"
 
   ###################
   # nginx
   ###################
-  for i in "$REPO_ROOT"/kube-system/nginx/nginx-external/*.txt
-  do
-    kapply "$i"
-  done
+  # These appear to have to do with oauth which we will use Keycloak for
+  #for i in "$REPO_ROOT"/kube-system/nginx/nginx-external/*.txt
+  #do
+  #  kapply "$i"
+  #done
 
-  kapply "$REPO_ROOT"/default/frigate/frigate-noauth-ingress.txt
+  # someday we will look into frigate
+  #kapply "$REPO_ROOT"/default/frigate/frigate-noauth-ingress.txt
 
   ###################
   # rook
+  # Note we are not likely to use this anytime soon
   ###################
   #ROOK_NAMESPACE_READY=1
   #while [ $ROOK_NAMESPACE_READY != 0 ]; do
@@ -47,6 +51,7 @@ installManualObjects(){
 
   #########################
   # cert-manager bootstrap
+  # We need a DNS domain first
   #########################
   #CERT_MANAGER_READY=1
   #while [ $CERT_MANAGER_READY != 0 ]; do
@@ -59,7 +64,7 @@ installManualObjects(){
 
 }
 
-export KUBECONFIG="$REPO_ROOT/setup/kubeconfig"
+# export KUBECONFIG="$REPO_ROOT/setup/kubeconfig"
 installManualObjects
 
-message "all done!"
+message "Finished bootstrapping objects!"

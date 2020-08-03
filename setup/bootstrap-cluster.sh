@@ -86,7 +86,7 @@ setupFluxKey
 installFlux
 
 # setup static objects
-#"$REPO_ROOT"/setup/bootstrap-objects.sh
+"$REPO_ROOT"/setup/bootstrap-objects.sh
 
 # initialize the Vault
 #"$REPO_ROOT"/setup/bootstrap-vault.sh
