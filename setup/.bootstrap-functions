@@ -1,0 +1,31 @@
+# Functions common to bootstrapping scripts
+
+#############################################
+# Because BASH does not have a die function #
+#   we must provide one                     #
+#############################################
+function die
+{
+    local message=$1
+    [ -z "$message" ] && message="Died"
+    echo "${BASH_SOURCE[1]}: line ${BASH_LINENO[0]}: ${FUNCNAME[1]}: $message." >&2
+    exit 1
+}
+
+
+############################
+#     Determine if we      #
+# have a valid environment #
+############################
+need() {
+    which "$1" &>/dev/null || die "Binary '$1' is missing but required"
+}
+
+###########################
+# Generic output function #
+###########################
+message() {
+  echo -e "\n######################################################################"
+  echo "# $1"
+  echo "######################################################################"
+}
